@@ -30,7 +30,7 @@ class MenuItem
   end
   
   def child_output
-    children.empty? ? '' : content_tag(:ul, @children.collect(&:to_s).join, :class => level_class)
+    children.empty? ? '' : content_tag(:ul, @children.collect {|c| c.to_s(@controller)}.join, :class => level_class)
   end
   
   def active?
@@ -54,6 +54,6 @@ class SemanticMenu < MenuItem
 
   def to_s(controller=nil)
     @controller = controller
-    content_tag(:ul, @children.collect(&:to_s).join, @opts)
+    content_tag(:ul, @children.collect {|c| c.to_s(@controller)}.join, @opts)
   end
 end
